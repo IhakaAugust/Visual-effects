@@ -1,0 +1,47 @@
+var stage;
+var loadingScreen;
+var screen1;
+var screen2;
+var screen3;
+
+function init(){
+  canvas = document.getElementById("slide");
+	stage = new createjs.Stage(canvas);
+  createjs.Ticker.setFPS(60);
+	createjs.Ticker.addEventListener("tick", stage);
+
+  preloadAssets();
+}
+
+function preloadAssets(){
+  loadingScreen = new createjs.Container();
+  var shape = new createjs.Shape();
+  shape.graphics.beginFill("#888888").drawRect(0, 0, 700, 500);
+  loadingScreen.addChild(shape);
+  var label = new createjs.Text("Loading...", "16px Arial white");
+  label.x = 300;
+  label.y = 250;
+  loadingScreen.addChild(label);
+  stage.addChild(loadingScreen);
+  var preload = new createjs.LoadQueue();
+  preload.installPlugin(createjs.Sound);
+  preload.installPlugin(createjs.MotionGuidePlugin);
+  preload.loadFile({id:"field",src:"images/field.png"});
+  preload.loadFile({id:"destination",src:"audio/destination.mp3"});
+  preload.on("complete", preloadComplete, this);
+}
+
+function preloadComplete(event){
+      console.log("preload finished");
+      stage.removeChild(loadingScreen);
+      addAudio();
+      buildScreen1();
+      buildScreen2();
+      buildScreen3();
+      stage.addChild(screen1);
+}
+
+function addAudio(){
+    var music = createjs.Sound.play("destination");
+    music.volume = 0;
+}
