@@ -1,0 +1,64 @@
+function buildScreen3(){
+  screen3 = new createjs.Container();
+
+var timeline3 = new createjs.Timeline( {loop: false} );
+
+var dropgoal = new createjs.Text("Drop Goal", "30px Arial Bold", "white");
+    dropgoal.x = 700;
+    dropgoal.y = 50;
+    timeline3.addTween(createjs.Tween.get(dropgoal)
+      .wait(2000)
+      .to({ x: 300 }, 3000, createjs.Ease.cubicOut));
+
+var field3 = new createjs.Bitmap("images/field.png");
+  field3.x = 750;
+  field3.y = 100;
+  field3.regX = 34;
+  field3.regY = 34;
+  timeline3.addTween(createjs.Tween.get(field3)
+    .wait(2000)
+    .to({ x: 100 }, 3000, createjs.Ease.cubicOut));
+
+var player4 = new createjs.Shape();
+  player4.graphics.beginFill("black").drawRect(0, 0, 10, 30);
+  player4.x = 330;  player4.y = 200;
+  timeline3.addTween(createjs.Tween.get(player4)
+    .wait(3000)
+    .to({ alpha: 0, visible: true }, 0)
+    .to({ alpha: 1.0}, 3000)
+    .to({ alpha: 1.0, x:327, y:197 }, 500, createjs.Ease.cubicOut)
+    .to({ alpha: 1.0, x:330 , y:200 }, 300, createjs.Ease.cubicOut));
+
+var ball3 = new createjs.Shape();
+  ball3.graphics.beginFill("red").drawRect(0, 0, 5, 10);
+  ball3.x = 333;  ball3.y = 215;
+  timeline3.addTween(createjs.Tween.get(ball3)
+    .wait(3000)
+    .to({ alpha: 0, visible: true }, 0)
+    .to({ alpha: 1.0}, 3000)
+    .wait(500)
+    .to({ alpha: 1.0, y: 222}, 300, createjs.Ease.cubicOut)
+    .to({ alpha: 1.0, x:700, y:200 }, 3000, createjs.Ease.cubicOut));
+
+  player4.visible = false;
+  ball3.visible = false;
+
+  timeline3.setPaused(true);
+
+var click5 = new createjs.Text("", "16px Arial", "#FFF");
+  click5.x = 50;
+  click5.y = 300;
+  click5.text = "Screen 3";
+
+  timeline3.setPaused(true);
+
+  click5.addEventListener("click", function(){
+  screen3.addChild(dropgoal);
+  screen3.addChild(field3);
+  screen3.addChild(player4);
+  screen3.addChild(ball3);
+  timeline3.gotoAndPlay(0);
+  })
+
+  screen3.addChild(click5);
+}
