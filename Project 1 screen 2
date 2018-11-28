@@ -1,0 +1,86 @@
+function buildScreen1(){
+  screen1 = new createjs.Container();
+
+var timeline1 = new createjs.Timeline( {loop: false} );
+
+var chipkick = new createjs.Text("Chip Kick", "30px Arial Bold", "white");
+  chipkick.x = 700;  chipkick.y = 50;
+  timeline1.addTween(createjs.Tween.get(chipkick)
+    .wait(2000)
+    .to({ x: 300 }, 3000, createjs.Ease.cubicOut));
+
+var field1 = new createjs.Bitmap("images/field.png");
+  field1.x = 750;
+  field1.y = 100;
+  field1.regX = 34;
+  field1.regY = 34;
+  timeline1.addTween(createjs.Tween.get(field1)
+    .wait(2000)
+    .to({ x: 100 }, 3000, createjs.Ease.cubicOut));
+
+
+var player1 = new createjs.Shape();
+  player1.graphics.beginFill("black").drawRect(0, 0, 10, 30);
+  player1.x = 330;  player1.y = 200;
+  timeline1.addTween(createjs.Tween.get(player1)
+    .wait(3000)
+    .to({ alpha: 0, visible: true }, 0)
+    .to({ alpha: 1.0}, 3000)
+    .to({ alpha: 1.0, x:327, y:197 }, 500, createjs.Ease.cubicOut)
+    .to({ alpha: 1.0, x:330 , y:200 }, 300, createjs.Ease.cubicOut));
+
+var player2= new createjs.Shape();
+    player2.graphics.beginFill("black").drawRect(0, 0, 10, 30);
+    player2.x = 360;  player2.y = 220;
+    timeline1.addTween(createjs.Tween.get(player2)
+      .wait(3000)
+      .to({ alpha: 0, visible: true }, 0)
+      .to({ alpha: 1.0}, 3000));
+
+var ball1 = new createjs.Shape();
+    ball1.graphics.beginFill("red").drawRect(0, 0, 5, 10);
+    ball1.x = 333;  ball1.y = 215;
+    timeline1.addTween(createjs.Tween.get(ball1)
+      .wait(3000)
+      .to({ alpha: 0, visible: true }, 0)
+      .to({ alpha: 1.0}, 3000)
+      .to({ alpha: 1.0, x:360, y:200 }, 800, createjs.Ease.linear)
+      .to({ alpha: 1.0, x:365, y:202}, 100, createjs.Ease.linear)
+      .to({ alpha: 1.0, x:380, y:250 }, 1000, createjs.Ease.cubicOut));
+
+    ball1.visible = false;
+    player1.visible = false;
+    player2.visible = false;
+
+var click1 = new createjs.Text("", "16px Arial", "#FFF");
+  click1.x = 50;
+  click1.y = 250;
+  click1.text = "Screen 1";
+
+  timeline1.setPaused(true);
+
+  click1.addEventListener("click", function(){
+  screen1.addChild(chipkick);
+  screen1.addChild(field1);
+  screen1.addChild(player1);
+  screen1.addChild(player2);
+  screen1.addChild(ball1);
+  screen1.addChild(click2);
+  timeline1.gotoAndPlay(0);
+  })
+
+  screen1.addChild(click1);
+
+var click2 = new createjs.Text("", "16px Arial", "#FFF");
+  click2.x = 50;
+  click2.y = 300;
+  click2.text = "Next Screen";
+
+  click2.addEventListener("click", function(){
+  stage.removeChild(screen1);
+  stage.addChild(screen2);
+  })
+
+
+
+}
